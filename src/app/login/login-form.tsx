@@ -12,4 +12,8 @@ export function LoginForm({ configured }: { configured: boolean }) {
     {!configured && <p role="status" className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm leading-6 text-amber-900">Sign in will be available once this app is connected to Supabase.</p>}
     <button disabled={pending || !configured} className="w-full rounded-xl bg-violet-600 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-600 disabled:opacity-50">{pending ? "Signing in…" : "Sign in →"}</button>
   </form>;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2261ebd (Set up Hackathon App login with Next.js and Supabase)

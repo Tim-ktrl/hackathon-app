@@ -4,4 +4,6 @@ body { background: #f6f7fb; color: #172032; font-family: Arial, Helvetica, sans-
 button, a, input { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
 button:disabled { cursor: not-allowed; }
+
 ::selection { background: #ddd6fe; }
+

@@ -39,4 +39,8 @@ For a fully local backend, install Docker Desktop, start Docker, then run `npx s
 - `/login` accepts email/password and redirects authenticated users to `/account`.
 - `/account` validates the session on the server and provides sign-out.
 
+<<<<<<< HEAD
 Environment files are ignored by Git; only the blank example is committed.
+=======
+Environment files are ignored by Git; only the blank example is committed.
+>>>>>>> 2261ebd (Set up Hackathon App login with Next.js and Supabase)

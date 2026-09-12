@@ -17,4 +17,8 @@ export default async function LoginPage() {
       <section className="w-full rounded-3xl border border-slate-200/80 bg-white p-7 shadow-xl shadow-slate-200/30 sm:p-12"><p className="text-xs font-bold uppercase tracking-[0.18em] text-violet-600">Welcome back</p><h2 className="mt-3 text-3xl font-semibold tracking-tight">Let’s get you signed in.</h2><p className="mt-3 text-sm leading-6 text-slate-500">Enter your details to continue to Hackathon App.</p><LoginForm configured={configured} /><p className="mt-7 text-center text-xs text-slate-400">Your space to build something new.</p></section>
     </div><footer className="mx-auto max-w-6xl text-xs text-slate-400">Hackathon App · Made for what’s next.</footer>
   </main>;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2261ebd (Set up Hackathon App login with Next.js and Supabase)
