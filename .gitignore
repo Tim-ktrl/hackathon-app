@@ -40,8 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-<<<<<<< HEAD
 !.env.example
-=======
-!.env.example
->>>>>>> 2261ebd (Set up Hackathon App login with Next.js and Supabase)

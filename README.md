@@ -1,46 +1,153 @@
-﻿# Hackathon App
+﻿# Codebase X-Ray
 
-Next.js App Router, TypeScript, Tailwind CSS, and Supabase email/password login.
+Codebase X-Ray is an interactive developer tool that helps programmers quickly understand unfamiliar JavaScript and TypeScript codebases.
 
-## Run
+Instead of manually opening dozens of files and tracing imports by hand, Codebase X-Ray analyzes a repository and generates an interactive dependency map showing how files are connected and how the project is structured.
 
-Requires Node.js 20.9+ and npm.
+## Why Codebase X-Ray?
 
-1. Run `npm install`.
-2. Copy `.env.example` to `.env.local`.
-3. Add the Supabase project URL and publishable key from your project's Connect dialog.
-4. Run `npm run dev` and open http://localhost:3000.
+Joining a new project, contributing to open source, or working with a large unfamiliar repository often begins with the same problem:
 
-Without Supabase settings, the login page renders with sign-in disabled.
+**Where do I start?**
 
-## Connect a new Supabase project
+Understanding how files, components, API routes, utilities, and services connect can take a significant amount of time.
 
-1. Create a project at https://supabase.com/dashboard.
-2. Copy the project URL and publishable key into `.env.local`. Never use a service-role or secret key here.
-3. Under Authentication → Users, add an email/password test user (confirm their email).
-4. Restart the app, sign in, and test sign out.
+Codebase X-Ray provides a visual overview of the repository so developers can build a mental model of the project before diving deeply into the source code.
 
-Only login and a protected signed-in page are included. Public sign-up and password reset are outside the current scope. No custom database tables are needed. Cookies hold the session; the server validates JWT claims before rendering the protected page.
+## Features
 
-## Optional local Supabase
+- Upload a JavaScript or TypeScript project as a ZIP file
+- Automatically scan `.js`, `.jsx`, `.ts`, and `.tsx` source files
+- Parse source code using Abstract Syntax Trees (ASTs)
+- Detect internal imports and file relationships
+- Support relative imports such as `./component` and `../utils/helper`
+- Support common `@/` TypeScript and Next.js import aliases
+- Generate an interactive dependency graph
+- Classify files into categories such as:
+  - Components
+  - Pages
+  - API routes
+  - Services
+  - Models
+  - Hooks
+  - Utilities
+  - Tests
+  - Configuration files
+- Display repository statistics such as file and dependency counts
+- Click files in the graph to explore their relationships
+- Identify which files a selected file depends on
+- Identify which files depend on the selected file
 
-The Supabase CLI is a dev dependency: `npx supabase --version`.
-For a fully local backend, install Docker Desktop, start Docker, then run `npx supabase start`. Put its API URL and anon key into `.env.local` (the anon key can use the publishable-key variable). Use the local Studio URL printed by the CLI to create a test user. Docker is unnecessary for a hosted Supabase project.
+## How It Works
 
-## Checks
+Codebase X-Ray performs static analysis on the uploaded repository.
 
-- `npm run lint`
-- `npx tsc --noEmit`
-- `npm run build`
+```text
+Repository ZIP
+      |
+      v
+Extract Source Files
+      |
+      v
+Parse JavaScript / TypeScript
+      |
+      v
+Generate Abstract Syntax Trees
+      |
+      v
+Detect Imports and Code Structure
+      |
+      v
+Build Dependency Graph
+      |
+      v
+Interactive Codebase X-Ray
+```
 
-## Routes
+The project does not rely on an LLM to determine the repository structure. Relationships are discovered directly from the source code using static analysis.
 
-- `/` redirects to `/login`.
-- `/login` accepts email/password and redirects authenticated users to `/account`.
-- `/account` validates the session on the server and provides sign-out.
+Example
 
-<<<<<<< HEAD
-Environment files are ignored by Git; only the blank example is committed.
-=======
-Environment files are ignored by Git; only the blank example is committed.
->>>>>>> 2261ebd (Set up Hackathon App login with Next.js and Supabase)
+If a project contains:
+
+import Dashboard from "@/components/Dashboard";
+
+and Dashboard.tsx contains:
+
+import UserCard from "./UserCard";
+
+Codebase X-Ray can reconstruct the relationship:
+
+page.tsx
+|
+v
+Dashboard.tsx
+|
+v
+UserCard.tsx
+
+The result is displayed as an interactive graph that developers can explore.
+
+## Tech Stack
+
+Next.js
+TypeScript
+Tailwind CSS
+React Flow / XYFlow
+Babel Parser
+Babel Traverse
+JSZip
+Project Architecture
+src/
+├── app/
+│ ├── api/
+│ │ └── analyze/
+│ │ └── route.ts
+│ ├── globals.css
+│ └── page.tsx
+│
+├── components/
+│ ├── AnalyzerWorkspace.tsx
+│ ├── CodeGraph.tsx
+│ ├── NodeInspector.tsx
+│ └── RepoUpload.tsx
+│
+└── lib/
+└── analyzer/
+├── analyzeFile.ts
+├── classifyFile.ts
+├── resolveImport.ts
+└── types.ts
+
+The analyzer logic is intentionally separated from the UI.
+
+lib/analyzer is responsible for understanding source code, while the React components are responsible for displaying the results.
+
+## Getting Started
+
+1. Clone the repository
+   git clone https://github.com/Tim-ktrl/hackathon-app.git
+2. Enter the project
+   cd hackathon-app
+3. Install dependencies
+   npm install
+4. Start the development server
+   npm run dev
+
+Open:
+
+http://localhost:3000
+
+in your browser.
+
+Using Codebase X-Ray
+
+Export or download a JavaScript or TypeScript repository as a ZIP file.
+
+Open Codebase X-Ray and select the ZIP file.
+
+Click Analyze Codebase.
+
+The application will scan the source files and generate a dependency graph.
+
+Click nodes in the graph to explore files and their relationships.
