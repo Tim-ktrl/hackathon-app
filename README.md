@@ -12,7 +12,7 @@ Joining a new project, contributing to open source, or working with a large unfa
 
 Understanding how files, components, API routes, utilities, and services connect can take a significant amount of time.
 
-Codebase X-Ray provides a visual overview of the repository so developers can build a mental model of the project before diving deeply into the source code.
+Codebase X-Ray turns an unfamiliar repository into an interactive visual map, helping developers understand its structure and dependencies before diving deeply into the source code.
 
 ## Features
 
@@ -66,88 +66,150 @@ Interactive Codebase X-Ray
 
 The project does not rely on an LLM to determine the repository structure. Relationships are discovered directly from the source code using static analysis.
 
-Example
+## Example
 
 If a project contains:
 
+```ts
 import Dashboard from "@/components/Dashboard";
+```
 
-and Dashboard.tsx contains:
+and `Dashboard.tsx` contains:
 
+```ts
 import UserCard from "./UserCard";
+```
 
 Codebase X-Ray can reconstruct the relationship:
 
+```text
 page.tsx
-|
-v
+   |
+   v
 Dashboard.tsx
-|
-v
+   |
+   v
 UserCard.tsx
+```
 
 The result is displayed as an interactive graph that developers can explore.
 
 ## Tech Stack
 
-Next.js
-TypeScript
-Tailwind CSS
-React Flow / XYFlow
-Babel Parser
-Babel Traverse
-JSZip
-Project Architecture
+- Next.js
+- TypeScript
+- Tailwind CSS
+- React Flow / XYFlow
+- Babel Parser
+- Babel Traverse
+- JSZip
+
+## Project Architecture
+
+```text
 src/
 ├── app/
-│ ├── api/
-│ │ └── analyze/
-│ │ └── route.ts
-│ ├── globals.css
-│ └── page.tsx
+│   ├── api/
+│   │   └── analyze/
+│   │       └── route.ts
+│   ├── globals.css
+│   └── page.tsx
 │
 ├── components/
-│ ├── AnalyzerWorkspace.tsx
-│ ├── CodeGraph.tsx
-│ ├── NodeInspector.tsx
-│ └── RepoUpload.tsx
+│   ├── AnalyzerWorkspace.tsx
+│   ├── CodeGraph.tsx
+│   ├── NodeInspector.tsx
+│   └── RepoUpload.tsx
 │
 └── lib/
-└── analyzer/
-├── analyzeFile.ts
-├── classifyFile.ts
-├── resolveImport.ts
-└── types.ts
+    └── analyzer/
+        ├── analyzeFile.ts
+        ├── classifyFile.ts
+        ├── resolveImport.ts
+        └── types.ts
+```
 
 The analyzer logic is intentionally separated from the UI.
 
-lib/analyzer is responsible for understanding source code, while the React components are responsible for displaying the results.
+`lib/analyzer` is responsible for understanding source code, while the React components are responsible for displaying the results.
 
 ## Getting Started
 
-1. Clone the repository
-   git clone https://github.com/Tim-ktrl/hackathon-app.git
-2. Enter the project
-   cd hackathon-app
-3. Install dependencies
-   npm install
-4. Start the development server
-   npm run dev
+### 1. Clone the repository
 
-Open:
+```bash
+git clone https://github.com/Tim-ktrl/hackathon-app.git
+```
 
+### 2. Enter the project
+
+```bash
+cd hackathon-app
+```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Start the development server
+
+```bash
+npm run dev
+```
+
+Then open:
+
+```text
 http://localhost:3000
+```
 
 in your browser.
 
-Using Codebase X-Ray
+## Using Codebase X-Ray
 
-Export or download a JavaScript or TypeScript repository as a ZIP file.
+1. Export or download a JavaScript or TypeScript repository as a ZIP file.
+2. Open Codebase X-Ray and select the ZIP file.
+3. Click **Analyze Codebase**.
+4. The application scans the source files and generates a dependency graph.
+5. Click nodes in the graph to explore files and their relationships.
 
-Open Codebase X-Ray and select the ZIP file.
+## Current Limitations
 
-Click Analyze Codebase.
+Codebase X-Ray is currently an MVP created during a hackathon.
 
-The application will scan the source files and generate a dependency graph.
+The current version focuses primarily on JavaScript and TypeScript repositories.
 
-Click nodes in the graph to explore files and their relationships.
+Static analysis can identify many relationships in source code, but some dynamic behavior may not be detected reliably, including dynamically generated imports or runtime-only dependencies.
+
+File classification also relies on common naming and folder conventions, so classifications are best-effort rather than guaranteed.
+
+## Future Improvements
+
+Potential future features include:
+
+- GitHub repository URL importing
+- Natural-language feature search
+- Function-level call graphs
+- More advanced React component detection
+- Search and filtering for large codebases
+- Support for additional programming languages
+- Saved repository analyses
+- AI-generated explanations built on top of static analysis results
+
+## Hackathon Track
+
+Codebase X-Ray was created for the **Unfamiliar Codebase** track.
+
+The project focuses on reducing the time required for developers to understand the structure of a repository they have never worked with before.
+
+Instead of beginning with dozens of disconnected source files, developers can begin with a visual map of the system.
+
+## What Makes It Different?
+
+Codebase X-Ray does not simply send a repository to an AI model and ask it to explain the code.
+
+The application analyzes the source code directly.
+
+Using AST parsing and import resolution, it constructs a structured representation of the repository and visualizes those relationships in an interactive graph.
