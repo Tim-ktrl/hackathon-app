@@ -20,8 +20,5 @@ export async function logout(): Promise<void> {
   const { error } = await supabase.auth.signOut();
   if (error) throw new Error("Unable to sign out. Please try again.");
   redirect("/login");
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 2261ebd (Set up Hackathon App login with Next.js and Supabase)
